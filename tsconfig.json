@@ -45,8 +45,8 @@
     /* Base directory to resolve non-absolute module names. */
     "baseUrl": "./packages",
     "paths": {
-      "@example": [
-        "example/src"
+      "@avil13/koa-router": [
+        "koa-router/src"
       ]
     },
     // "typeRoots": [],                       /* List of folders to include type definitions from. */
