@@ -1,26 +1,22 @@
-# В DEV режиме идет наблюдение за этим файлом, и конфиг меняется при его изменении
-# В DEV режиме возможно использование *.ts файлов
-
-options:                                      # optional
-  middlewarePath: ./middleware                    # default "middleware" if exists
-  controllerPath: ./controller                    # default "controller" if exists
+options:                            # optional
+  middlewarePath: ./middleware      # default "middleware" if exists
+  controllerPath: ./controller      # default "controller" if exists
 
 middleware:
   is_auth: is-auth.middleware      # название файла в папке указанной в "options.middleware"
   is_guest: is-not-auth.middleware
-  is_admin: is-admin.middleware
-
+  is_admin: is-admin.middleware::checkAdmin
 
 routes:
   # simplest example with required params
   - name: BlogList
     path: /blog
-    controller: blog::getArticleList
+    controller: blog::getArticleList # path to file ./controller/blog.ts"
 
-  - name: ShowBlogItem            # алиас, доступен через ctx.router.currentRoute.name
+  - name: ShowBlogItem            # alias, available via "ctx.router.name"
     prefix: /blog
-    path: /:id                    # => /blog/:id    - так как есть префикс
-    controller: blog::getArticle  # В паке из "options.controllers" в файле "blog.ts" используем функцию "getArticle" `export const getArticle =(...) => {...}`
+    path: /:id                    # => /blog/:id   - since there is a prefix
+    controller: blog::getArticle  # In the package from "options.controllers" in the "blog.ts " using the "getArticle" function `export const getArticle =(...) => {...}`
     methods: GET|HEAD             # default all 'GET', 'HEAD', 'PUT', 'DELETE', 'OPTIONS', 'TRACE'
     middleware:
       - is_guest
@@ -29,8 +25,5 @@ routes:
     requirements:
       id: '\d+'                    # правила валидации, для итогового пути (/blog/:id)
     response:
-      header: text/html           # в DEV режиме логировать ошибки если что то переписывает эти параметры
+      header: text/html
       status: 200
-
-  # - prefix: /api
-  #   importConfigPath: '../feature/dashboard'

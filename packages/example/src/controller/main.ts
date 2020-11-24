@@ -2,7 +2,7 @@ import { RouteController } from '@avil13/koa-router';
 
 export const index: RouteController = (ctx) => {
   console.log('=>', ctx.route);
-  return 'false';
+  return 'Hello world!!!';
 };
 
 export const user: RouteController = (ctx) => {

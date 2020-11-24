@@ -4,11 +4,22 @@
   "version": "0.0.1",
   "description": "Koa-router, with yaml configuration and care of the developer.",
   "main": "dist",
+  "types": "dist",
   "author": "avil13",
   "license": "MIT",
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "build": "rm -rf ./dist && tsc -c tsconfig.prod.json"
+  },
+  "files": [
+    "README.md",
+    "dist",
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/avil13/avil13-koa-router.git"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.4.1",

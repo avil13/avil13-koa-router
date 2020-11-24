@@ -3,7 +3,7 @@
   "compilerOptions": {
     "target": "ES2019",
     /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017','ES2018' or 'ESNEXT'. */
-    "module": "ES2020",
+    "module": "CommonJS",
     "outDir": "dist/",
     "allowJs": true,
     "allowSyntheticDefaultImports": true
