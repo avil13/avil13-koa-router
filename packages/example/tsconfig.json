@@ -1,17 +1,17 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "module": "CommonJS",
     "outDir": "dist/",
-    "allowJs": true
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "src/**/*.ts",
-    "src/**/*.js",
-    "src/**/*.vue"
+    "../koa-router/src/*.ts",
   ],
   "exclude": [
     "node_modules",
-    "example",
     "dist"
   ]
 }

@@ -2,50 +2,33 @@ import { readFile } from 'fs';
 import { promisify } from 'util';
 //@ts-ignore
 import yaml from 'js-yaml';
+import { ConfigEntity } from '../types';
 
-const readFIlePromise = promisify(readFile);
+const readFilePromise = promisify(readFile);
 
-interface IConfigByPathOptions {
-  options?: {
-    middlewarePath?: string;
-    controllersPath?: string;
-  };
-  routeOptions?: {
-    prefix: string;
-  };
-  middleware?: string[];
-}
+const defaultConfig: ConfigEntity = {
+  options: {
+    middlewarePath: './middleware',
+    controllerPath: './controller',
+  },
+  middleware: {},
+  routes: [],
+};
 
 export const getConfigByPath = async (
-  pathToConfig: string,
-  options: IConfigByPathOptions = {}
-) => {
-  const configContent = await readFIlePromise(pathToConfig, 'utf8');
+  pathToConfig: string
+): Promise<ConfigEntity> => {
+  const configContent = await readFilePromise(pathToConfig, 'utf8');
 
-  const configJson = yaml.safeLoad(configContent);
+  const configJson: ConfigEntity = yaml.safeLoad(configContent);
 
-  // TODO: validate
-  const listRoutesResult = [];
-
-  for (const route of configJson.routes) {
-    const { importConfigPath, ...opt } = route;
-
-    if (importConfigPath) {
-      const importedRouterConfig: any = await getConfigByPath(
-        importConfigPath,
-        {
-          routeOptions: opt,
-          middleware: options.middleware,
-        }
-      );
-
-      listRoutesResult.push(...importedRouterConfig.routes);
-    } else if (route) {
-      listRoutesResult.push({ ...route, ...options.routeOptions });
-    }
+  if (!configJson.options) {
+    configJson.options = defaultConfig.options;
   }
 
-  configJson.routes = listRoutesResult;
+  if (!configJson.middleware) {
+    configJson.middleware = defaultConfig.middleware;
+  }
 
   return configJson;
 };

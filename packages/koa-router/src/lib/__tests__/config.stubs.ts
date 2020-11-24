@@ -46,3 +46,29 @@ routes:
   - prefix: /api2
     importConfigPath: './path/to/simple2'
 `;
+
+export const subImport0 = `
+routes:
+  - prefix: /api
+    importConfigPath: './sub/1'
+`;
+
+export const subImport1 = `
+routes:
+  - prefix: /user
+    importConfigPath: './sub/2'
+`;
+export const subImport2 = `
+routes:
+  - name: UserItem
+    path: /me
+    controller: user::getUser
+
+  - prefix: /list
+    importConfigPath: './sub/3'
+`;
+export const subImport3 = `
+routes:
+  - name: /list
+    importConfigPath: './sub/3'
+`;

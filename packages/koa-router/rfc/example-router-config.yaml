@@ -3,7 +3,7 @@
 
 options:                                      # optional
   middlewarePath: ./middleware                    # default "middleware" if exists
-  controllersPath: ./controllers                  # default "controllers" if exists
+  controllerPath: ./controller                    # default "controller" if exists
 
 middleware:
   is_auth: is-auth.middleware      # название файла в папке указанной в "options.middleware"
@@ -21,7 +21,7 @@ routes:
     prefix: /blog
     path: /:id                    # => /blog/:id    - так как есть префикс
     controller: blog::getArticle  # В паке из "options.controllers" в файле "blog.ts" используем функцию "getArticle" `export const getArticle =(...) => {...}`
-    methods: GET|HEAD             # default * (ALL) awailible: 'ALL', 'GET', 'HEAD', 'PUT', 'DELETE', 'OPTIONS', 'TRACE'
+    methods: GET|HEAD             # default all 'GET', 'HEAD', 'PUT', 'DELETE', 'OPTIONS', 'TRACE'
     middleware:
       - is_guest
       - is_auth
@@ -32,5 +32,5 @@ routes:
       header: text/html           # в DEV режиме логировать ошибки если что то переписывает эти параметры
       status: 200
 
-  - prefix: /api
-    importConfigPath: '../feature/dashboard'
+  # - prefix: /api
+  #   importConfigPath: '../feature/dashboard'

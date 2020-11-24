@@ -2,19 +2,17 @@
 
 Koa-router, with yaml configuration and care of the developer.
 
----
-
 ```ts
+
 import Koa from 'koa';
 import { makeRouter } from '@avil13/koa-router';
 
-const app = new Koa();
+(async () => {
+  const app = new Koa();
 
-app.use(
-  makeRouter('./router-config.yaml', {
-    idDev: app.env !== 'production',
-  })
-);
+  app.use(await makeRouter('./router-config.yaml'));
 
-app.listen(3000);
+  app.listen(3000);
+})();
+
 ```
