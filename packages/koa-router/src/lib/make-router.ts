@@ -3,6 +3,7 @@ import Application from 'koa';
 import {
   ConfigEntity,
   RouteControllerResult,
+  RouterContext,
   RouterMiddleware,
 } from '../types';
 import { castResponse } from './cast-response';
@@ -17,10 +18,8 @@ import { RouteManager } from './route-manager';
 
 const routeManager = new RouteManager();
 
-export const makeRouter = async (
-  pathToConfig: string
-): Promise<Application.Middleware> => {
-  const config: ConfigEntity = await getConfigByPath(pathToConfig);
+export const makeRouter = (pathToConfig: string): Application.Middleware => {
+  const config: ConfigEntity = getConfigByPath(pathToConfig);
 
   setMiddlewareAndControllers(pathToConfig, config);
 
@@ -38,7 +37,9 @@ export const makeRouter = async (
       return;
     }
 
+    // route context
     ctx.route = routeManager.toCurrentRoute(ctx, route);
+    const ctxRoute = ctx as RouterContext;
 
     // соибраем очередь из мидлваров
     // строим массив из мадваров и роута, для выполнения
@@ -50,17 +51,17 @@ export const makeRouter = async (
 
     let result:
       | RouteControllerResult
-      | ReturnType<RouterMiddleware> = await middlewareQueue(ctx, queue);
+      | ReturnType<RouterMiddleware> = await middlewareQueue(ctxRoute, queue);
 
     if (result === true) {
       const controller = getController(route.controller);
-      result = await controller(ctx);
+      result = await controller(ctxRoute);
     }
 
     // если у роута есть параметр response то кастим ответ согласно ему,
     // если нет, то пытаемся определить ответ относительно резульата его выполнения
     // добавляем в контекст свойство router для текущего роута
-    castResponse(ctx, route, result);
+    castResponse(ctxRoute, route, result);
   };
   // если в опции makeRouter указан параметр, то выводим в консоль таблицу роутов
 };

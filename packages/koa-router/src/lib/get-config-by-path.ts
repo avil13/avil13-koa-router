@@ -1,10 +1,7 @@
-import { readFile } from 'fs';
-import { promisify } from 'util';
+import { readFileSync } from 'fs';
 //@ts-ignore
 import yaml from 'js-yaml';
 import { ConfigEntity } from '../types';
-
-const readFilePromise = promisify(readFile);
 
 const defaultConfig: ConfigEntity = {
   options: {
@@ -15,10 +12,8 @@ const defaultConfig: ConfigEntity = {
   routes: [],
 };
 
-export const getConfigByPath = async (
-  pathToConfig: string
-): Promise<ConfigEntity> => {
-  const configContent = await readFilePromise(pathToConfig, 'utf8');
+export const getConfigByPath = (pathToConfig: string): ConfigEntity => {
+  const configContent = readFileSync(pathToConfig, 'utf8');
 
   const configJson: ConfigEntity = yaml.safeLoad(configContent);
 

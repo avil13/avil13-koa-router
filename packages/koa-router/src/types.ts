@@ -1,5 +1,18 @@
 import Application from 'koa';
 
+export interface CurrentRoute {
+  readonly name: string;
+  readonly path: string;
+  readonly params: { [key: string]: string };
+  readonly query: { [key: string]: string | string[] };
+}
+
+/* eslint-disable @typescript-eslint/ban-types */
+export type RouterContext = Application.Context & {
+  router: CurrentRoute;
+};
+/* eslint-enable @typescript-eslint/ban-types */
+
 export type RouteControllerResult =
   | undefined
   | string
@@ -8,24 +21,17 @@ export type RouteControllerResult =
   | RouterResponse;
 
 export type RouteController = (
-  ctx: Application.Context
+  ctx: RouterContext
 ) => RouteControllerResult | Promise<RouteControllerResult>;
 
 export type RouterMiddleware = (
-  ctx: Application.Context
+  ctx: RouterContext
 ) => boolean | RouterResponse | Promise<boolean | RouterResponse>;
 
 export interface RouteEntity extends RouteConfigItem {
   readonly urlPath: string;
   readonly pathRegExp: RegExp;
   getParams(path: string): { [key: string]: string };
-}
-
-export interface CurrentRoute {
-  readonly name: string;
-  readonly path: string;
-  readonly params: { [key: string]: string };
-  readonly query: { [key: string]: string | string[] };
 }
 
 export interface RouterResponse {

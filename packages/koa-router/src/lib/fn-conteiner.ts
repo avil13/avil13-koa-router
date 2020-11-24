@@ -13,7 +13,7 @@ export const getNormalizedFnEntity = (options: {
 }) => {
   const { pathToConfig, prefixPath, pathAndMethod } = options;
 
-  const dir = dirname(join(prefixPath, pathToConfig));
+  const dir = join(dirname(pathToConfig), prefixPath);
 
   const [pathToFile, methodName] = pathAndMethod.split('::');
 
@@ -30,7 +30,6 @@ export const getNormalizedFnEntity = (options: {
     filePath,
     fn,
     key: pathAndMethod,
-    name: fn.name,
   };
 };
 //#endregion
@@ -101,7 +100,7 @@ export const setMiddlewareAndControllers = (
       pathAndMethod: route.controller,
     });
 
-    addController(item.name, item.fn);
+    addController(item.key, item.fn);
   });
 };
 //#endregion

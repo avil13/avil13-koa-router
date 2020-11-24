@@ -2,7 +2,7 @@
   "name": "@avil13/koa-router",
   "version": "0.0.1",
   "description": "Koa-router, with yaml configuration and care of the developer.",
-  "main": "dist/index.js",
+  "main": "dist",
   "author": "avil13",
   "license": "MIT",
   "scripts": {

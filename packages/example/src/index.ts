@@ -1,10 +1,15 @@
 import Koa from 'koa';
 import { makeRouter } from '@avil13/koa-router';
+import { join } from 'path';
 
-(async () => {
-  const app = new Koa();
+const PORT = 3000;
 
-  app.use(await makeRouter('./router-config.yaml'));
+const app = new Koa();
 
-  app.listen(3000);
-})();
+const configFile = join(__dirname, 'router-config.yaml');
+
+app.use(makeRouter(configFile));
+
+app.listen(PORT);
+
+console.log(`http://localhost:${PORT}/`);

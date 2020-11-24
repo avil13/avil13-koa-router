@@ -1,13 +1,12 @@
-import Application from 'koa';
-
 import {
+  RouterContext,
   RouteConfigItem,
   RouteControllerResult,
   RouterMiddleware,
 } from '../types';
 
 export const castResponse = (
-  ctx: Application.Context,
+  ctx: RouterContext,
   route: RouteConfigItem,
   result: RouteControllerResult | ReturnType<RouterMiddleware>
 ) => {
@@ -15,7 +14,8 @@ export const castResponse = (
     ctx.body = result;
   }
 
-  // if (route.response) {
-  //   ctx.response.set(route.response);
-  // }
+  if (route.response) {
+    //@ts-ignore
+    ctx.response.set(route.response);
+  }
 };

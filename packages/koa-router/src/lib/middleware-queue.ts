@@ -1,9 +1,7 @@
-import Application from 'koa';
-
-import { RouterMiddleware } from '../types';
+import { RouterContext, RouterMiddleware } from '../types';
 
 export const middlewareQueue = async (
-  ctx: Application.Context,
+  ctx: RouterContext,
   items: RouterMiddleware[]
 ) => {
   let isResult: ReturnType<RouterMiddleware> = true;

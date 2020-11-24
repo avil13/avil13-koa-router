@@ -1,0 +1,8 @@
+routes:
+  - name: Index
+    path: /
+    controller: main::index
+
+  - name: Name
+    path: /:name
+    controller: main::user
