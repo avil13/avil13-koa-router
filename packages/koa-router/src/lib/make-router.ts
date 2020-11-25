@@ -15,11 +15,18 @@ import {
 import { getConfigByPath } from './get-config-by-path';
 import { middlewareQueue } from './middleware-queue';
 import { RouteManager } from './route-manager';
+import { validateConfig } from './validate-config';
 
 const routeManager = new RouteManager();
 
 export const makeRouter = (pathToConfig: string): Application.Middleware => {
   const config: ConfigEntity = getConfigByPath(pathToConfig);
+
+  const isValidOrErrors = validateConfig(config);
+
+  if (isValidOrErrors !== true) {
+    throw isValidOrErrors;
+  }
 
   setMiddlewareAndControllers(pathToConfig, config);
 

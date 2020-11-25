@@ -10,7 +10,8 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
-    "build": "rm -rf ./dist && tsc -c tsconfig.prod.json"
+    "build": "rm -rf ./dist && tsc -c tsconfig.prod.json",
+    "prepublish": "npm run test && npm run build"
   },
   "files": [
     "README.md",
@@ -38,6 +39,7 @@
   },
   "dependencies": {
     "@types/koa": "^2.11.6",
+    "ajv": "^6.12.6",
     "js-yaml": "^3.14.0",
     "path-to-regexp": "^6.2.0"
   }

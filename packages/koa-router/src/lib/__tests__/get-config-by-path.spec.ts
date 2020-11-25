@@ -1,24 +1,19 @@
 import * as stubs from './config.stubs';
 
-jest.mock('util', () => {
+jest.mock('fs', () => {
   return {
     __esModule: true,
-    promisify() {
-      return (configContent: string) => {
-        return Promise.resolve(configContent);
-      };
+    readFileSync(configContent: string) {
+      return configContent;
     },
   };
 });
 
 import { getConfigByPath } from '../get-config-by-path';
 
-describe('create-config-by-path', () => {
+describe('getConfigByPath', () => {
   it('simple', async () => {
-    const conf = await getConfigByPath(stubs.simple);
-
-    expect(conf).toEqual({
-      routes: [{ controller: 'blog::getArticles', name: 'Test', path: '/' }],
-    });
+    const conf = getConfigByPath(stubs.simpleYaml);
+    expect(conf).toEqual(stubs.simpleJson);
   });
 });
