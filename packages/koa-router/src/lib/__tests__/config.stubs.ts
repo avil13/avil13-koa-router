@@ -21,6 +21,24 @@ export const simpleJson = {
 };
 
 //
+export const withMiddlewareJson = {
+  middleware: {},
+  options: {
+    controllerPath: './controller',
+    middlewarePath: './middleware',
+  },
+  routes: [
+    {
+      name: 'UserItem',
+      path: '/user',
+      controller: 'user::getUser',
+      methods: 'GET|HEAD',
+      middleware: ['is_auth'],
+    },
+  ],
+};
+
+//
 export const badJson = {
   routes: [
     {

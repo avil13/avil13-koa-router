@@ -33,7 +33,7 @@ export const validateConfig = (config: ConfigEntity) => {
         path: { type: 'string' },
         prefix: { type: 'string' },
         methods: { type: 'string' },
-        middleware: { type: 'string' },
+        middleware: { type: 'array', items: { type: 'string' } },
         response: { type: 'object' },
       },
     },

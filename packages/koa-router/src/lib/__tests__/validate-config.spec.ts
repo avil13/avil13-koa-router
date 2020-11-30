@@ -14,4 +14,9 @@ describe('validateConfig', () => {
       `should have required property 'controller'`
     );
   });
+
+  it('with middleware', () => {
+    const res = validateConfig(stubs.withMiddlewareJson);
+    expect(res).toBe(true);
+  });
 });
