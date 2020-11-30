@@ -1,5 +1,5 @@
 import Application from 'koa';
-import { match, pathToRegexp } from 'path-to-regexp';
+import { compile, match, pathToRegexp } from 'path-to-regexp';
 
 import { CurrentRoute, RouteConfigItem, RouteEntity } from '../types';
 
@@ -67,6 +67,22 @@ export class RouteManager {
       get params() {
         return route.getParams(ctx.path);
       },
+      resolveRoute: this.resolveRoute,
     };
+  }
+
+  private resolveRoute(
+    name: string,
+    params: { [k: string]: string | number } = {}
+  ): string | null {
+    const route = this.routes.find((item) => {
+      return item.name === name;
+    });
+    if (!route) {
+      return null;
+    }
+    const toPath = compile(route.path, { encode: encodeURIComponent });
+
+    return toPath(params);
   }
 }

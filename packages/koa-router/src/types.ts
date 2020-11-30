@@ -5,6 +5,12 @@ export interface CurrentRoute {
   readonly path: string;
   readonly params: { [key: string]: string };
   readonly query: { [key: string]: string | string[] };
+  resolveRoute(
+    name: string,
+    params?: {
+      [k: string]: string | number;
+    }
+  ): string | null;
 }
 
 /* eslint-disable @typescript-eslint/ban-types */
@@ -29,6 +35,7 @@ export type RouterMiddleware = (
 ) => boolean | RouterResponse | Promise<boolean | RouterResponse>;
 
 export interface RouteEntity extends RouteConfigItem {
+  readonly name: string;
   readonly urlPath: string;
   readonly pathRegExp: RegExp;
   getParams(path: string): { [key: string]: string };
