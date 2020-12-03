@@ -67,7 +67,7 @@ export class RouteManager {
       get params() {
         return route.getParams(ctx.path);
       },
-      resolveRoute: this.resolveRoute,
+      resolveRoute: this.resolveRoute.bind(this),
     };
   }
 

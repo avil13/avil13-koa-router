@@ -1,7 +1,7 @@
 {
   "name": "@avil13/koa-router",
   "private": false,
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Koa-router, with yaml configuration and care of the developer.",
   "main": "dist",
   "types": "dist",

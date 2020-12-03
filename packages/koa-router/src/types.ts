@@ -15,7 +15,7 @@ export interface CurrentRoute {
 
 /* eslint-disable @typescript-eslint/ban-types */
 export type RouterContext = Application.Context & {
-  router: CurrentRoute;
+  route: CurrentRoute;
 };
 /* eslint-enable @typescript-eslint/ban-types */
 
