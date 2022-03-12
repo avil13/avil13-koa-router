@@ -4,7 +4,7 @@ export interface CurrentRoute {
   readonly name: string;
   readonly path: string;
   readonly params: { [key: string]: string };
-  readonly query: { [key: string]: string | string[] };
+  readonly query: { [key: string]: string | string[] | undefined };
   resolveRoute(
     name: string,
     params?: {
