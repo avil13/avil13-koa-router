@@ -51,8 +51,7 @@
     },
     // "typeRoots": [],                       /* List of folders to include type definitions from. */
     "types": [
-      "node",
-      "jest"
+      "node"
     ],
     /* Type declaration files to be included in compilation. */
     "allowSyntheticDefaultImports": false,

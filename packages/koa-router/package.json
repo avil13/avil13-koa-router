@@ -8,8 +8,8 @@
   "author": "avil13",
   "license": "MIT",
   "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "build": "rm -rf ./dist && tsc --build tsconfig.prod.json",
     "prepublish": "npm run test && npm run build"
   },
@@ -25,17 +25,13 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.4.1",
     "@typescript-eslint/parser": "^4.4.1",
-    "commitizen": "^4.2.2",
-    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.10.0",
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-prettier": "^3.1.4",
-    "jest": "^26.6.3",
-    "jest-canvas-mock": "^2.3.0",
     "prettier": "^2.1.2",
-    "ts-jest": "^26.4.4",
     "ts-node": "^9.0.0",
-    "typescript": "^4.0.5"
+    "typescript": "^4.0.5",
+    "vitest": "^0.6.0"
   },
   "dependencies": {
     "@types/koa": "^2.11.6",

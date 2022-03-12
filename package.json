@@ -5,12 +5,6 @@
   ],
   "scripts": {
     "test": "lerna run test --stream",
-    "bootstrap": "lerna bootstrap",
-    "commit": "cz"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
+    "bootstrap": "lerna bootstrap"
   }
 }

@@ -1,6 +1,8 @@
+import { describe, expect, it, vi } from 'vitest';
+import { getConfigByPath } from '../get-config-by-path';
 import * as stubs from './config.stubs';
 
-jest.mock('fs', () => {
+vi.mock('fs', () => {
   return {
     __esModule: true,
     readFileSync(configContent: string) {
@@ -8,8 +10,6 @@ jest.mock('fs', () => {
     },
   };
 });
-
-import { getConfigByPath } from '../get-config-by-path';
 
 describe('getConfigByPath', () => {
   it('simple', async () => {

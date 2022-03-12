@@ -1,5 +1,6 @@
-import { ConfigEntity } from './../../types';
+import { describe, expect, it } from 'vitest';
 import { validateConfig } from '../validate-config';
+import { ConfigEntity } from './../../types';
 import * as stubs from './config.stubs';
 
 describe('validateConfig', () => {
