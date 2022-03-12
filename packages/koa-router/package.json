@@ -23,20 +23,21 @@
     "url": "https://github.com/avil13/avil13-koa-router.git"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.4.1",
-    "@typescript-eslint/parser": "^4.4.1",
-    "eslint": "^7.10.0",
-    "eslint-config-prettier": "^6.12.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "prettier": "^2.1.2",
-    "ts-node": "^9.0.0",
-    "typescript": "^4.0.5",
+    "@types/js-yaml": "^4.0.5",
+    "@typescript-eslint/eslint-plugin": "^5.14.0",
+    "@typescript-eslint/parser": "^5.14.0",
+    "eslint": "^8.11.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.5.1",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.2",
     "vitest": "^0.6.0"
   },
   "dependencies": {
-    "@types/koa": "^2.11.6",
-    "ajv": "^6.12.6",
-    "js-yaml": "^3.14.0",
+    "@types/koa": "^2.13.4",
+    "ajv": "^8.10.0",
+    "js-yaml": "^4.1.0",
     "path-to-regexp": "^6.2.0"
   }
 }

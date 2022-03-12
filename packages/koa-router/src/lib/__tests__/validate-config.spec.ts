@@ -12,7 +12,7 @@ describe('validateConfig', () => {
   it('bad config', () => {
     const res = validateConfig(stubs.badJson as ConfigEntity);
     expect(JSON.stringify(res)).toContain(
-      `should have required property 'controller'`
+      `must have required property 'controller'`
     );
   });
 

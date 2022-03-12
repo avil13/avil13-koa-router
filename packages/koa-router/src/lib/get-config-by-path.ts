@@ -1,5 +1,4 @@
 import { readFileSync } from 'fs';
-//@ts-ignore
 import yaml from 'js-yaml';
 import { ConfigEntity } from '../types';
 
@@ -15,7 +14,7 @@ const defaultConfig: ConfigEntity = {
 export const getConfigByPath = (pathToConfig: string): ConfigEntity => {
   const configContent = readFileSync(pathToConfig, 'utf8');
 
-  const configJson: ConfigEntity = yaml.safeLoad(configContent);
+  const configJson = yaml.load(configContent) as ConfigEntity;
 
   if (!configJson.options) {
     configJson.options = defaultConfig.options;
