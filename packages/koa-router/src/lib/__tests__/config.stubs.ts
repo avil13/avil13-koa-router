@@ -76,3 +76,18 @@ routes:
       header: text/html
       status: 200
 `;
+
+export const staticRouteJson = {
+  middleware: {},
+  options: {
+    controllerPath: './controller',
+    middlewarePath: './middleware',
+  },
+  routes: [
+    {
+      name: 'StaticItem',
+      path: '/',
+      static: '/public'
+    },
+  ],
+};

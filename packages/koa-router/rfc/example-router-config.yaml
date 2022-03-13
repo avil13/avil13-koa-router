@@ -27,3 +27,8 @@ routes:
     response:
       header: text/html
       status: 200
+
+  - name: StaticFiles
+    path: /
+    static: ./public
+

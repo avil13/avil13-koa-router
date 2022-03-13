@@ -20,4 +20,9 @@ describe('validateConfig', () => {
     const res = validateConfig(stubs.withMiddlewareJson);
     expect(res).toBe(true);
   });
+
+  it('with static route', () => {
+    const res = validateConfig(stubs.staticRouteJson);
+    expect(res).toBe(true);
+  });
 });

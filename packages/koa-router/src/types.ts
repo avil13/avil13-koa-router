@@ -63,11 +63,18 @@ export interface RouteConfigItem {
   };
 }
 
+export interface RouteStaticConfigItem {
+  name: string;
+  path: string;
+  static: string;
+  middleware?: string[];
+}
+
 export interface ConfigEntity {
   options: {
     middlewarePath: string | './middleware';
     controllerPath: string | './controller';
   };
   middleware: { [key: string]: string };
-  routes: RouteConfigItem[];
+  routes: (RouteConfigItem | RouteStaticConfigItem)[];
 }
