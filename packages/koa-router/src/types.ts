@@ -12,6 +12,7 @@ export interface CurrentRoute {
     }
   ): string | null;
   readonly staticFile: string | null;
+  readonly isDownload: boolean;
 }
 
 /* eslint-disable @typescript-eslint/ban-types */
@@ -42,6 +43,7 @@ export interface RouteEntity extends RouteNoControllerConfigItem {
   getParams(path: string): { [key: string]: string };
   isStatic: boolean;
   getFilePath(filePath: string): string | null;
+  isDownload: boolean;
 }
 
 export interface RouterResponse {
@@ -50,7 +52,10 @@ export interface RouterResponse {
   header?: any;
 }
 
-export type RouteNoControllerConfigItem = Omit<RouteControllerConfigItem, 'controller'>;
+export type RouteNoControllerConfigItem = Omit<
+  RouteControllerConfigItem,
+  'controller'
+>;
 
 export interface RouteControllerConfigItem {
   name: string;
@@ -73,6 +78,7 @@ export interface RouteStaticConfigItem {
   path: string;
   static: string;
   middleware?: string[];
+  download?: boolean;
 }
 
 export type RouteConfigItem = RouteControllerConfigItem | RouteStaticConfigItem;

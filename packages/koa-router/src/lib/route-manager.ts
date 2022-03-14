@@ -6,7 +6,7 @@ import { CurrentRoute, RouteConfigItem, RouteEntity } from '../types';
 
 export class RouteManager {
   private routes: RouteEntity[] = [];
-  private pathToConfig: string = '';
+  private pathToConfig = '';
 
   setPathToConfig(pathToConfig: string) {
     this.pathToConfig = path.dirname(pathToConfig);
@@ -21,6 +21,7 @@ export class RouteManager {
   private toRouteEntity(routeItem: RouteConfigItem): RouteEntity {
     const isStatic = 'static' in routeItem;
     const methods = 'static' in routeItem ? 'GET|HEAD' : routeItem.methods;
+    const isDownload = ('static' in routeItem && routeItem.download) || false;
     const prefix = 'prefix' in routeItem && routeItem.prefix;
     const pathToConfig = this.pathToConfig;
 
@@ -32,6 +33,7 @@ export class RouteManager {
     return {
       ...routeItem,
       isStatic,
+      isDownload,
       getFilePath(filePath: string) {
         if (!isStatic) {
           return null;
@@ -89,7 +91,8 @@ export class RouteManager {
       resolveRoute: this.resolveRoute.bind(this),
       get staticFile() {
         return route.getFilePath(ctx.request.url);
-      }
+      },
+      isDownload: route.isDownload,
     };
   }
 

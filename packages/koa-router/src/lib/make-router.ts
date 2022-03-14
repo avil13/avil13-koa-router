@@ -58,9 +58,8 @@ export const makeRouter = (pathToConfig: string): Application.Middleware => {
       queue.push(...route.middleware.map((key) => getMiddleware(key)));
     }
 
-    let result:
-      | RouteControllerResult
-      | ReturnType<RouterMiddleware> = await middlewareQueue(ctxRoute, queue);
+    let result: RouteControllerResult | ReturnType<RouterMiddleware> =
+      await middlewareQueue(ctxRoute, queue);
 
     if (result === true) {
       const controller = getController(route.name);

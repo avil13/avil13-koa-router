@@ -2,12 +2,14 @@
 
 Koa-router, with yaml configuration and care of the developer.
 
+[Example of project](https://github.com/avil13/avil13-koa-router/blob/master/packages/example/)
+
 ---
 
 ### Install
 
 ```bash
-npm install @avil13/koa-router
+npm install koa @avil13/koa-router
 ```
 
 ### Code examples:
@@ -60,6 +62,13 @@ routes:
     response:
       header: text/html
       status: 200
+
+  # /download/(.*) - is subpath of /(.*)
+  # So we put it in early.
+  - name: StaticDownload
+    path: /download/(.*)
+    static: ./public
+    download: true
 
   # Static files
   - name: Static

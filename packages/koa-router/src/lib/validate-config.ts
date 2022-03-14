@@ -1,5 +1,9 @@
 import Ajv, { DefinedError, JSONSchemaType } from 'ajv';
-import { ConfigEntity, RouteControllerConfigItem, RouteStaticConfigItem } from '../types';
+import {
+  ConfigEntity,
+  RouteControllerConfigItem,
+  RouteStaticConfigItem,
+} from '../types';
 
 const ajv = new Ajv();
 
@@ -43,7 +47,8 @@ export const validateConfig = (config: ConfigEntity) => {
       static: { type: 'string' },
       path: { type: 'string' },
       middleware: { type: 'array', items: { type: 'string' }, nullable: true },
-    }
+      download: { type: 'boolean', nullable: true },
+    },
   };
 
   const routes = {

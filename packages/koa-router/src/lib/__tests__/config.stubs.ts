@@ -87,7 +87,23 @@ export const staticRouteJson = {
     {
       name: 'StaticItem',
       path: '/',
-      static: '/public'
+      static: '/public',
+    },
+  ],
+};
+
+export const staticDownloadRouteJson = {
+  middleware: {},
+  options: {
+    controllerPath: './controller',
+    middlewarePath: './middleware',
+  },
+  routes: [
+    {
+      name: 'StaticItem',
+      path: '/',
+      static: '/public',
+      download: true,
     },
   ],
 };

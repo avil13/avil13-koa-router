@@ -32,3 +32,8 @@ routes:
     path: /
     static: ./public
 
+  - name: StaticFilesToDownload
+    path: /download
+    static: ./download-files
+    download: true
+
