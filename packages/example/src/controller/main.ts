@@ -1,15 +1,17 @@
 import { RouteController } from '@avil13/koa-router';
 
 export const index: RouteController = (ctx) => {
-  console.log('=>', ctx.route);
+  console.log('=> index:', ctx.route);
   return 'Hello world!!!';
 };
 
 export const user: RouteController = (ctx) => {
-  console.log('=>', ctx.route.params);
+  const params = ctx.route.params
+
+  console.log('=> user:', JSON.stringify(params));
 
   ctx.status = 201;
-  ctx.body = `!!!!!:${ctx.route.params.name}`;
+  ctx.body = `RouteController( ${params.name} )`;
 
-  return `Name: ${ctx.route.params.name}`;
+  return `Name: ${params.name}`;
 };

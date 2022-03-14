@@ -11,6 +11,7 @@ export interface CurrentRoute {
       [k: string]: string | number;
     }
   ): string | null;
+  readonly staticFile: string | null;
 }
 
 /* eslint-disable @typescript-eslint/ban-types */
@@ -34,11 +35,13 @@ export type RouterMiddleware = (
   ctx: RouterContext
 ) => boolean | RouterResponse | Promise<boolean | RouterResponse>;
 
-export interface RouteEntity extends RouteConfigItem {
+export interface RouteEntity extends RouteNoControllerConfigItem {
   readonly name: string;
   readonly urlPath: string;
   readonly pathRegExp: RegExp;
   getParams(path: string): { [key: string]: string };
+  isStatic: boolean;
+  getFilePath(filePath: string): string | null;
 }
 
 export interface RouterResponse {
@@ -47,7 +50,9 @@ export interface RouterResponse {
   header?: any;
 }
 
-export interface RouteConfigItem {
+export type RouteNoControllerConfigItem = Omit<RouteControllerConfigItem, 'controller'>;
+
+export interface RouteControllerConfigItem {
   name: string;
   controller: string;
   path: string;
@@ -70,11 +75,13 @@ export interface RouteStaticConfigItem {
   middleware?: string[];
 }
 
+export type RouteConfigItem = RouteControllerConfigItem | RouteStaticConfigItem;
+
 export interface ConfigEntity {
   options: {
     middlewarePath: string | './middleware';
     controllerPath: string | './controller';
   };
   middleware: { [key: string]: string };
-  routes: (RouteConfigItem | RouteStaticConfigItem)[];
+  routes: RouteConfigItem[];
 }

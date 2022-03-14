@@ -25,11 +25,13 @@ export const makeRouter = (pathToConfig: string): Application.Middleware => {
   const isValidOrErrors = validateConfig(config);
 
   if (isValidOrErrors !== true) {
+    // TODO: сделать человекочитаемый вывод об ошибках
     throw isValidOrErrors;
   }
 
   setMiddlewareAndControllers(pathToConfig, config);
 
+  routeManager.setPathToConfig(pathToConfig);
   routeManager.setRouters(config.routes);
 
   /**
@@ -61,7 +63,7 @@ export const makeRouter = (pathToConfig: string): Application.Middleware => {
       | ReturnType<RouterMiddleware> = await middlewareQueue(ctxRoute, queue);
 
     if (result === true) {
-      const controller = getController(route.controller);
+      const controller = getController(route.name);
       result = await controller(ctxRoute);
     }
 

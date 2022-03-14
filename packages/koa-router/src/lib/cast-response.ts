@@ -1,13 +1,13 @@
 import {
   RouterContext,
-  RouteConfigItem,
+  RouteNoControllerConfigItem,
   RouteControllerResult,
   RouterMiddleware,
 } from '../types';
 
 export const castResponse = (
   ctx: RouterContext,
-  route: RouteConfigItem,
+  route: RouteNoControllerConfigItem,
   result: RouteControllerResult | ReturnType<RouterMiddleware>
 ) => {
   if (!ctx.body && result) {

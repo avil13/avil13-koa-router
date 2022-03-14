@@ -1,6 +1,5 @@
 import Ajv, { DefinedError, JSONSchemaType } from 'ajv';
-
-import { ConfigEntity, RouteConfigItem, RouteStaticConfigItem } from '../types';
+import { ConfigEntity, RouteControllerConfigItem, RouteStaticConfigItem } from '../types';
 
 const ajv = new Ajv();
 
@@ -21,7 +20,7 @@ export const validateConfig = (config: ConfigEntity) => {
     },
   };
 
-  const routeObject: JSONSchemaType<RouteConfigItem> = {
+  const routeObject: JSONSchemaType<RouteControllerConfigItem> = {
     type: 'object',
     required: ['name', 'controller', 'path'],
     additionalProperties: false,

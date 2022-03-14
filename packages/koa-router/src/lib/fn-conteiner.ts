@@ -1,16 +1,23 @@
 import { ConfigEntity, RouteController, RouterMiddleware } from '../types';
 
 import { dirname, join, normalize } from 'path';
+import { staticFilesController } from './static-files-controller';
 
 const middlewareList = new Map<string, RouterMiddleware>();
 const controllerList = new Map<string, RouteController>();
 
+interface NormalizedFnEntity<T = RouteController | RouterMiddleware> {
+  filePath: string;
+  fn: T;
+  key: string;
+}
+
 //#region [ normalize ]
-export const getNormalizedFnEntity = (options: {
+export const getNormalizedFnEntity = <T = RouteController | RouterMiddleware>(options: {
   pathToConfig: string;
   prefixPath: string | './controller' | './middleware';
   pathAndMethod: string;
-}) => {
+}): NormalizedFnEntity<T> => {
   const { pathToConfig, prefixPath, pathAndMethod } = options;
 
   const dir = join(dirname(pathToConfig), prefixPath);
@@ -23,7 +30,7 @@ export const getNormalizedFnEntity = (options: {
   const fn = methodName ? require(filePath)[methodName] : require(filePath);
 
   if (typeof fn !== 'function') {
-    throw new Error(`"${pathAndMethod}" is not function \n ${filePath}`);
+    throw new Error(`"${pathAndMethod}" is not function\n ${filePath}\n ${methodName}`);
   }
 
   return {
@@ -84,7 +91,7 @@ export const setMiddlewareAndControllers = (
   config: ConfigEntity
 ) => {
   for (const key in config.middleware) {
-    const item = getNormalizedFnEntity({
+    const item = getNormalizedFnEntity<RouterMiddleware>({
       pathToConfig,
       prefixPath: config.options.middlewarePath,
       pathAndMethod: config.middleware[key],
@@ -93,14 +100,19 @@ export const setMiddlewareAndControllers = (
     addMiddleware(key, item.fn);
   }
 
-  config.routes.forEach((route) => {
-    const item = getNormalizedFnEntity({
-      pathToConfig,
-      prefixPath: config.options.controllerPath,
-      pathAndMethod: route.controller,
-    });
+  let itemRoute: NormalizedFnEntity<RouteController>;
 
-    addController(item.key, item.fn);
+  config.routes.forEach((route) => {
+    if ('static' in route) {
+      addController(route.name, staticFilesController);
+    } else {
+      itemRoute = getNormalizedFnEntity<RouteController>({
+        pathToConfig,
+        prefixPath: config.options.controllerPath,
+        pathAndMethod: route.controller,
+      });
+      addController(route.name, itemRoute.fn);
+    }
   });
 };
 //#endregion

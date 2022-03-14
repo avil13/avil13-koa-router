@@ -1,10 +1,16 @@
 import Application from 'koa';
 import { compile, match, pathToRegexp } from 'path-to-regexp';
+import path from 'path';
 
 import { CurrentRoute, RouteConfigItem, RouteEntity } from '../types';
 
 export class RouteManager {
   private routes: RouteEntity[] = [];
+  private pathToConfig: string = '';
+
+  setPathToConfig(pathToConfig: string) {
+    this.pathToConfig = path.dirname(pathToConfig);
+  }
 
   setRouters(routes: RouteConfigItem[]) {
     this.routes = routes.map((item: RouteConfigItem) =>
@@ -13,13 +19,26 @@ export class RouteManager {
   }
 
   private toRouteEntity(routeItem: RouteConfigItem): RouteEntity {
-    const urlPath = [routeItem.prefix, routeItem.path]
+    const isStatic = 'static' in routeItem;
+    const methods = 'static' in routeItem ? 'GET|HEAD' : routeItem.methods;
+    const prefix = 'prefix' in routeItem && routeItem.prefix;
+    const pathToConfig = this.pathToConfig;
+
+    const urlPath = [prefix, routeItem.path]
       .filter(Boolean)
       .join('/')
       .replace(/\/+/g, '/'); // Replaces repeated slashes in the URL.
 
     return {
       ...routeItem,
+      isStatic,
+      getFilePath(filePath: string) {
+        if (!isStatic) {
+          return null;
+        }
+        return path.join(pathToConfig, routeItem.static, filePath);
+      },
+      methods,
       urlPath,
       pathRegExp: pathToRegexp(urlPath),
       getParams(path) {
@@ -68,6 +87,9 @@ export class RouteManager {
         return route.getParams(ctx.path);
       },
       resolveRoute: this.resolveRoute.bind(this),
+      get staticFile() {
+        return route.getFilePath(ctx.request.url);
+      }
     };
   }
 

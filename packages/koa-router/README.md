@@ -60,6 +60,11 @@ routes:
     response:
       header: text/html
       status: 200
+
+  # Static files
+  - name: Static
+    path: /(.*)
+    static: ./public          # path to static folder
 ```
 
 

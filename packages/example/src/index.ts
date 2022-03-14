@@ -1,5 +1,5 @@
 import Koa from 'koa';
-import { makeRouter } from '@avil13/koa-router';
+import { makeRouter } from '@avil13/koa-router/src';
 import { join } from 'path';
 
 const PORT = 3000;

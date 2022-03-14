@@ -1,8 +1,12 @@
 routes:
   - name: Index
-    path: /
+    path: /index
     controller: main::index
 
   - name: Name
     path: /:name
     controller: main::user
+
+  - name: Static
+    path: /(.*)
+    static: ./public
