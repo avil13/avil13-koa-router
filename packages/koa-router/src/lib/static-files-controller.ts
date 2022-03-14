@@ -7,8 +7,6 @@ export const staticFilesController: RouteController = async (ctx) => {
     return;
   }
 
-  // console.log('=>', JSON.stringify(ctx.route, null, 2));
-
   if (ctx.route.isDownload) {
     ctx.set('Content-Description', 'File Transfer');
     ctx.set('Content-Type', 'application/octet-stream');
@@ -25,17 +23,27 @@ export const staticFilesController: RouteController = async (ctx) => {
 
   if (file) {
     ctx.set('Content-Length', `${file.size}`);
+    ctx.set('Last-Modified', file.lastModified);
+
     ctx.type = path.extname(file.filePath);
     ctx.body = fs.createReadStream(file.filePath);
   }
 };
 
-async function getFile(
-  filePath: string
-): Promise<{ filePath: string; size: number } | null> {
+interface GetFile {
+  filePath: string;
+  size: number;
+  lastModified: string;
+}
+
+async function getFile(filePath: string): Promise<GetFile | null> {
   const stat = await getStat(filePath);
   if (stat.isFile()) {
-    return { filePath, size: stat.size };
+    return {
+      filePath,
+      size: stat.size,
+      lastModified: stat.mtime.toUTCString(),
+    };
   }
 
   if (stat.isDirectory()) {
@@ -43,7 +51,11 @@ async function getFile(
     const stat = await getStat(indexFilePath);
 
     if (stat.isFile()) {
-      return { filePath: indexFilePath, size: stat.size };
+      return {
+        filePath: indexFilePath,
+        size: stat.size,
+        lastModified: stat.mtime.toUTCString(),
+      };
     }
   }
 
