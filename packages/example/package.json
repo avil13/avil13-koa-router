@@ -2,7 +2,6 @@
   "name": "example-avil13-koa-router",
   "private": true,
   "version": "0.0.1",
-  "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
     "dev": "ts-node ./src/index.ts"

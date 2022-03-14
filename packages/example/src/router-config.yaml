@@ -7,6 +7,13 @@ routes:
     path: /:name
     controller: main::user
 
+  # /download/(.*) - is subpath of /(.*)
+  # So we put it in early.
+  - name: StaticDownload
+    path: /download/(.*)
+    static: ./public
+    download: true
+
   - name: Static
     path: /(.*)
     static: ./public
