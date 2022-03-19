@@ -11,7 +11,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "build": "rm -rf ./dist && tsc --build tsconfig.prod.json",
-    "prepublish": "npm run test && npm run build"
+    "prepublish": "npm run test && npm run build",
+    "preinstall": "npx only-allow pnpm"
   },
   "files": [
     "README.md",

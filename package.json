@@ -5,6 +5,6 @@
   ],
   "scripts": {
     "test": "lerna run test --stream",
-    "bootstrap": "lerna bootstrap"
+    "preinstall": "npx only-allow pnpm"
   }
 }
