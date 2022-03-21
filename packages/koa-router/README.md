@@ -34,8 +34,12 @@ console.log(`http://localhost:${PORT}/`);
 
 ```
 
+> If you want to use validation in a YAML file, I recommend that you set [redhat.vscode-yaml](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml)
+
+## router-config.yaml
+
 ```yaml
-# router-config.yaml
+# yaml-language-server: $schema=https://raw.githubusercontent.com/avil13/avil13-koa-router/master/packages/koa-router/src/avil13-koa-router-json-schema/schema.json
 
 options:                            # optional
   middlewarePath: ./middleware      # default "middleware"

@@ -1,0 +1,108 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "title": "JSON Schema for configuration for @avil13/koa-router",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "routes"
+  ],
+  "properties": {
+    "options": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "middlewarePath": {
+          "type": "string"
+        },
+        "controllerPath": {
+          "type": "string"
+        }
+      }
+    },
+    "middleware": {
+      "type": "object",
+      "patternProperties": {
+        "[^\\s]": {
+          "type": "string"
+        }
+      }
+    },
+    "routes": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "required": [
+              "name",
+              "controller",
+              "path"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "controller": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "prefix": {
+                "type": "string",
+                "nullable": true
+              },
+              "methods": {
+                "type": "string",
+                "nullable": true
+              },
+              "middleware": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "nullable": true
+              },
+              "response": {
+                "type": "object",
+                "nullable": true
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "static",
+              "path"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "static": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "middleware": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "nullable": true
+              },
+              "download": {
+                "type": "boolean",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
