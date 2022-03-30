@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"name": "✨ [ROOT]: avil13@koa-router",
+			"path": "."
+		},
+		{
+			"name": "❤️‍🔥 koa-router",
+			"path": "./packages/koa-router/"
+		},
+		{
+			"name": "🫀 example",
+			"path": "./packages/example/"
+		}
+	],
+	"settings": {}
+}

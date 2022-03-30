@@ -1,24 +1,32 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [{
-            "type": "node",
-            "request": "launch",
-            "name": "Launch Program",
-            "args": ["${workspaceFolder}/src/index.ts"],
-            "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
-            "protocol": "inspector",
-            "sourceMaps": true
-        },
-        {
-            "type": "node",
-            "request": "attach",
-            "name": "Attach to Process",
-            "port": 5858,
-            "restart": true,
-            "protocol": "inspector"
-        }
-    ]
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Example Package",
+      "args": ["${workspaceFolder}/packages/example/src/index.ts"],
+      "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
+      "protocol": "inspector",
+      "sourceMaps": true,
+      "env": {
+        "APP_KEY": "xxx-xxx"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Back Koa",
+      "args": ["${workspaceFolder}/src/index.ts"],
+      "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
+      "protocol": "inspector",
+      "sourceMaps": true,
+      "env": {
+        "APP_KEY": "xxx-xxx"
+      }
+    }
+  ]
 }

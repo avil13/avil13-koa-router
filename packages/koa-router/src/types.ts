@@ -1,4 +1,10 @@
 import Application from 'koa';
+import koaBody from 'koa-body';
+
+export interface MakeRouterParams {
+  pathToConfig: string;
+  koaBody?: koaBody.IKoaBodyOptions;
+}
 
 export interface CurrentRoute {
   readonly name: string;
