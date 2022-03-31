@@ -1,6 +1,13 @@
 import { RouteController } from '../types';
 import path from 'path';
 import fs from 'fs';
+import { PassThrough } from 'stream';
+
+interface GetFile {
+  filePath: string;
+  size: number;
+  lastModified: string;
+}
 
 export const staticFilesController: RouteController = async (ctx) => {
   if (!ctx.route.staticFile) {
@@ -26,15 +33,20 @@ export const staticFilesController: RouteController = async (ctx) => {
     ctx.set('Last-Modified', file.lastModified);
 
     ctx.type = path.extname(file.filePath);
-    ctx.body = fs.createReadStream(file.filePath);
+    const stream = fs.createReadStream(file.filePath);
+
+    stream
+      .once('end', () => {
+        stream.destroy();
+      })
+      .once('error', (err) => {
+        ctx.onerror(err);
+      })
+      .pipe(new PassThrough());
+
+    ctx.body = stream;
   }
 };
-
-interface GetFile {
-  filePath: string;
-  size: number;
-  lastModified: string;
-}
 
 async function getFile(filePath: string): Promise<GetFile | null> {
   const stat = await getStat(filePath);
