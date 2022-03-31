@@ -33,7 +33,11 @@ export const staticFilesController: RouteController = async (ctx) => {
     ctx.set('Last-Modified', file.lastModified);
 
     ctx.type = path.extname(file.filePath);
-    const stream = fs.createReadStream(file.filePath);
+
+    const stream = fs.createReadStream(file.filePath, {
+      autoClose: true,
+      encoding: 'utf8',
+    });
 
     stream
       .once('end', () => {
