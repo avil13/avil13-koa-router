@@ -24,10 +24,10 @@ const PORT = 3000;
 
 const app = new Koa();
 
-const configFile = join(__dirname, 'router-config.yaml');
+const pathToConfig = join(__dirname, 'router-config.yaml');
 
 app.use(makeRouter({
-  configFile,
+  pathToConfig,
   koaBody: { // Now here out of the box
     multipart: true,
     urlencoded: true,
