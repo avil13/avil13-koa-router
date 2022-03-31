@@ -26,7 +26,13 @@ const app = new Koa();
 
 const configFile = join(__dirname, 'router-config.yaml');
 
-app.use(makeRouter(configFile));
+app.use(makeRouter({
+  configFile,
+  koaBody: { // Now here out of the box
+    multipart: true,
+    urlencoded: true,
+  }
+));
 
 app.listen(PORT);
 
@@ -81,7 +87,7 @@ routes:
 ```
 
 
-### Route example
+## Route example
 ```ts
 // ./controller/blog.ts
 
@@ -100,7 +106,12 @@ export const getArticle: RouteController = (ctx) => {
 };
 ```
 
-### Middleware example
+## Middleware example
+
+Not to be confused with Middleware for the main application.
+
+This is the Middleware for the router.
+
 ```ts
 // ./middleware/is-auth.middleware.ts
 import { RouterMiddleware } from '@avil13/koa-router';
@@ -114,3 +125,16 @@ export const checkAuth: RouterMiddleware = (ctx) => {
   return true; // is valid
 }
 ```
+
+# CLI
+
+You can use the CLI helpers.
+
+```sh
+# example
+yarn ts-node ./src/index.ts \ # path to your server script
+                  route:list  # display the current Routes
+```
+
+### `route:list`
+  - You can see the current routers

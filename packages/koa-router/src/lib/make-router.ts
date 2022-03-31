@@ -1,5 +1,6 @@
 import Application from 'koa';
 import koaBody from 'koa-body';
+import { checkCliArguments } from '../cli';
 import {
   ConfigEntity,
   MakeRouterParams,
@@ -43,6 +44,11 @@ export const makeRouter = (
   routeManager.setPathToConfig(pathToConfig);
   routeManager.setRouters(config.routes);
 
+  checkCliArguments({
+    arguments: process.argv.slice(2),
+    routes: routeManager.getRoutesInfo(),
+  });
+
   /**
    * Koa Middleware
    */
@@ -85,5 +91,4 @@ export const makeRouter = (
     // добавляем в контекст свойство router для текущего роута
     castResponse(ctxRoute, route, result);
   };
-  // если в опции makeRouter указан параметр, то выводим в консоль таблицу роутов
 };

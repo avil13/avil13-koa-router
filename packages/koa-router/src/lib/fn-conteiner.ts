@@ -13,7 +13,9 @@ interface NormalizedFnEntity<T = RouteController | RouterMiddleware> {
 }
 
 //#region [ normalize ]
-export const getNormalizedFnEntity = <T = RouteController | RouterMiddleware>(options: {
+export const getNormalizedFnEntity = <
+  T = RouteController | RouterMiddleware
+>(options: {
   pathToConfig: string;
   prefixPath: string | './controller' | './middleware';
   pathAndMethod: string;
@@ -30,7 +32,9 @@ export const getNormalizedFnEntity = <T = RouteController | RouterMiddleware>(op
   const fn = methodName ? require(filePath)[methodName] : require(filePath);
 
   if (typeof fn !== 'function') {
-    throw new Error(`"${pathAndMethod}" is not function\n ${filePath}\n ${methodName}`);
+    throw new Error(
+      `"${pathAndMethod}" is not function\n ${filePath}\n ${methodName}`
+    );
   }
 
   return {
@@ -68,7 +72,7 @@ export const addController = (
 ): void => {
   if (controllerList.has(controllerName)) {
     console.warn(`Controller "${controllerName}" already exists`);
-    // throw new Error(`Controller "${controllerName}" already exists`);
+    throw new Error(`Controller "${controllerName}" already exists`);
   }
 
   controllerList.set(controllerName, fn);

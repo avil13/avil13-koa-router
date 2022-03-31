@@ -97,3 +97,9 @@ export interface ConfigEntity {
   middleware: { [key: string]: string };
   routes: RouteConfigItem[];
 }
+
+export interface RouteInfo {
+  name: string;
+  path: string;
+  method: string;
+}

@@ -2,7 +2,12 @@ import Application from 'koa';
 import { compile, match, pathToRegexp } from 'path-to-regexp';
 import path from 'path';
 
-import { CurrentRoute, RouteConfigItem, RouteEntity } from '../types';
+import {
+  CurrentRoute,
+  RouteConfigItem,
+  RouteEntity,
+  RouteInfo,
+} from '../types';
 
 export class RouteManager {
   private routes: RouteEntity[] = [];
@@ -109,5 +114,15 @@ export class RouteManager {
     const toPath = compile(route.path, { encode: encodeURIComponent });
 
     return toPath(params);
+  }
+
+  getRoutesInfo(): RouteInfo[] {
+    return this.routes.map((r: RouteEntity) => {
+      return {
+        name: r.name,
+        path: r.path,
+        method: r.methods || 'GET|HEAD',
+      };
+    });
   }
 }
