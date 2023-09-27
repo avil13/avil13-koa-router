@@ -1,9 +1,9 @@
 import Application from 'koa';
-import koaBody from 'koa-body';
+import { type KoaBodyMiddlewareOptions } from 'koa-body';
 
 export interface MakeRouterParams {
   pathToConfig: string;
-  koaBody?: koaBody.IKoaBodyOptions;
+  koaBody?: KoaBodyMiddlewareOptions;
 }
 
 export interface CurrentRoute {
